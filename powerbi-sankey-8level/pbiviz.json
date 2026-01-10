@@ -4,7 +4,7 @@
     "displayName": "Sankey Diagram (up to 8 levels)",
     "guid": "sankey8level-visual-001",
     "visualClassName": "Visual",
-    "version": "1.0.0",
+    "version": "1.0.0.0",
     "description": "Custom visual for Sankey with up to 8 levels and row-column input layout.",
     "supportUrl": "https://example.com",
     "gitHubUrl": ""

@@ -1,0 +1,173 @@
+{
+  "dataRoles": [
+    {
+      "name": "Level1",
+      "displayName": "Level 1",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level2",
+      "displayName": "Level 2",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level3",
+      "displayName": "Level 3",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level4",
+      "displayName": "Level 4",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level5",
+      "displayName": "Level 5",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level6",
+      "displayName": "Level 6",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level7",
+      "displayName": "Level 7",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Level8",
+      "displayName": "Level 8",
+      "kind": "Grouping"
+    },
+    {
+      "name": "Value",
+      "displayName": "Value",
+      "kind": "Measure"
+    },
+    {
+      "name": "Tooltip",
+      "displayName": "Tooltip",
+      "kind": "Measure"
+    }
+  ],
+  "objects": {
+    "sankeySettings": {
+      "displayName": "Sankey Settings",
+      "properties": {
+        "nodeWidth": {
+          "displayName": "Node width",
+          "type": {
+            "numeric": true
+          }
+        },
+        "nodePadding": {
+          "displayName": "Node padding",
+          "type": {
+            "numeric": true
+          }
+        },
+        "linkOpacity": {
+          "displayName": "Link opacity",
+          "type": {
+            "numeric": true
+          }
+        },
+        "align": {
+          "displayName": "Alignment (left/right/center/justify)",
+          "type": {
+            "text": true
+          }
+        },
+        "truncateLabels": {
+          "displayName": "Truncate labels",
+          "type": {
+            "bool": true
+          }
+        },
+        "labelMaxLen": {
+          "displayName": "Label max length",
+          "type": {
+            "numeric": true
+          }
+        },
+        "mergeSameLabelsAcrossLevels": {
+          "displayName": "Merge same labels across levels",
+          "type": {
+            "bool": true
+          }
+        }
+      }
+    }
+  },
+  "dataViewMappings": [
+    {
+      "table": {
+        "rows": {
+          "select": [
+            {
+              "for": {
+                "in": "Level1"
+              }
+            },
+            {
+              "for": {
+                "in": "Level2"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Level3"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Level4"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Level5"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Level6"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Level7"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Level8"
+              },
+              "optional": true
+            },
+            {
+              "for": {
+                "in": "Value"
+              }
+            },
+            {
+              "for": {
+                "in": "Tooltip"
+              },
+              "optional": true
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "suppressDefaultTitle": true,
+  "supportsMultiVisualSelection": true
+}

@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "powerbi-visuals-tools": "^5.1.0",
-    "powerbi-visuals-webpack-plugin": "^5.0.3",
+    "powerbi-visuals-webpack-plugin": "^4.1.0",
     "powerbi-visuals-api": "^5.2.0",
     "typescript": "^5.4.0",
     "ts-loader": "^9.5.0",

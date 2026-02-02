@@ -1,0 +1,21 @@
+
+@import (less) url('https://fonts.googleapis.com/css?family=Inter:400,600');
+.sankey-container {
+  font-family: 'Inter', sans-serif;
+}
+.node rect {
+  stroke: #00000022;
+  stroke-width: 1px;
+}
+.node text {
+  fill: #333;
+  font-size: 12px;
+  pointer-events: none;
+}
+.link {
+  fill: none;
+  stroke-opacity: 0.5;
+}
+
+.link.selected { stroke-opacity: 0.9; }
+.node.selected rect { stroke: #0055ff; stroke-width: 2px; }

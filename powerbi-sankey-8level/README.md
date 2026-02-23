@@ -26,6 +26,23 @@ powerbi-sankey-8level/
 ```
 
 ## Build & Run
+
+### Quick Build (Using Helper Script)
+
+**Linux/Mac:**
+```bash
+./build.sh
+```
+
+**Windows:**
+```batch
+build.bat
+```
+
+The script will automatically install dependencies and create the `.pbiviz` file in `dist/`.
+
+### Manual Build
+
 1. Install Node.js (LTS 18+ recommended).
 2. Install Power BI visuals tools:
    ```bash
@@ -45,6 +62,16 @@ powerbi-sankey-8level/
    npm run package
    ```
    The `.pbiviz` file appears under `dist/`.
+
+### Import to Power BI
+
+Once you have the `.pbiviz` file:
+1. Open Power BI Desktop
+2. Go to Visualizations pane → **...** → **Import a visual from a file**
+3. Select the `.pbiviz` file from `dist/` directory
+4. Click Import
+
+See [DEPLOYMENT_GUIDE.md](../DEPLOYMENT_GUIDE.md) for detailed instructions.
 
 ## Data Model (Row–Column)
 Create a table with columns:

@@ -8,16 +8,11 @@
     import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
     import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
     import DataView = powerbi.DataView;
-    import ISelectionManager = powerbi.extensibility.ISelectionManager;
-    import ISelectionId = powerbi.extensibility.ISelectionId;
-
-    type SelId = ISelectionId | null;
 
     interface Row {
       levels: (string | null)[]; // up to 8
       value: number;
       tooltip?: string;
-      identity?: SelId;
     }
 
     interface SankeyNode {
@@ -25,7 +20,6 @@
       rawLabel: string;
       levelIndex: number; // 0..7
       color: string;
-      identity?: SelId;
     }
 
     interface SankeyLink {
@@ -33,30 +27,35 @@
       target: number; // node index
       value: number;
       tooltip?: string;
-      identity?: SelId;
     }
 
     export class Visual implements IVisual {
       private target: HTMLElement;
       private svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
       private container: d3.Selection<SVGGElement, unknown, null, undefined>;
-      private selectionManager: ISelectionManager;
       private colorPalette: powerbi.extensibility.IColorPalette;
 
       constructor(options: VisualConstructorOptions) {
         this.target = options.element;
-        this.selectionManager = options.host.createSelectionManager();
         this.colorPalette = options.host.colorPalette;
         this.svg = d3.select(this.target).append('svg').classed('sankey-svg', true);
         this.container = this.svg.append('g').classed('sankey-container', true);
       }
 
       public update(options: VisualUpdateOptions) {
-        const dv = options.dataViews && options.dataViews[0];
-        const width = options.viewport.width;
-        const height = options.viewport.height;
-        this.svg.attr('width', width).attr('height', height);
-        this.container.attr('transform', 'translate(0,0)');
+        try {
+          const dv = options.dataViews && options.dataViews[0];
+          const width = options.viewport.width;
+          const height = options.viewport.height;
+
+          // Validate viewport dimensions
+          if (width <= 0 || height <= 0) {
+            this.container.selectAll('*').remove();
+            return;
+          }
+
+          this.svg.attr('width', width).attr('height', height);
+          this.container.attr('transform', 'translate(0,0)');
 
         if (!dv || !dv.table || !dv.table.rows || dv.table.rows.length === 0) {
           this.container.selectAll('*').remove();
@@ -100,7 +99,13 @@
 
         rows.forEach(row => {
           // find last non-null level
-          let maxLevel = row.levels.reduce((acc, v, i) => v ? i : acc, -1);
+          let maxLevel = -1;
+          for (let i = row.levels.length - 1; i >= 0; i--) {
+            if (row.levels[i]) {
+              maxLevel = i;
+              break;
+            }
+          }
           for (let li = 0; li <= maxLevel; li++) {
             const lbl = row.levels[li];
             if (!lbl) continue;
@@ -184,5 +189,14 @@ ${(d as any).value}`);
           .filter(d => (d as any).x0 < width / 2)
           .attr('x', d => (d as any).x1 + 6)
           .attr('text-anchor', 'start');
+        } catch (error) {
+          // Handle errors gracefully
+          this.container.selectAll('*').remove();
+          this.container.append('text')
+            .attr('x', 12).attr('y', 24)
+            .attr('fill', '#d00')
+            .text('Error rendering Sankey diagram. Check console for details.');
+          console.error('Sankey visual error:', error);
+        }
       }
     }

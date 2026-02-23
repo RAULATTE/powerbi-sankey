@@ -18,5 +18,9 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
-  }
+  },
+  "files": [
+    "src/visual.ts",
+    "src/settings.ts"
+  ]
 }

@@ -7,7 +7,6 @@
     import IVisual = powerbi.extensibility.visual.IVisual;
     import VisualConstructorOptions = powerbi.extensibility.visual.VisualConstructorOptions;
     import VisualUpdateOptions = powerbi.extensibility.visual.VisualUpdateOptions;
-    import DataView = powerbi.DataView;
 
     interface Row {
       levels: (string | null)[]; // up to 8
@@ -33,11 +32,9 @@
       private target: HTMLElement;
       private svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
       private container: d3.Selection<SVGGElement, unknown, null, undefined>;
-      private colorPalette: powerbi.extensibility.IColorPalette;
 
       constructor(options: VisualConstructorOptions) {
         this.target = options.element;
-        this.colorPalette = options.host.colorPalette;
         this.svg = d3.select(this.target).append('svg').classed('sankey-svg', true);
         this.container = this.svg.append('g').classed('sankey-container', true);
       }
@@ -160,7 +157,7 @@
         linkSel.enter().append('path')
           .attr('class', 'link')
           .attr('d', sankeyLinkHorizontal())
-          .attr('stroke', d => '#888')
+          .attr('stroke', () => '#888')
           .attr('stroke-width', d => Math.max(1, (d as any).width))
           .attr('stroke-opacity', settings.linkOpacity)
           .append('title')
